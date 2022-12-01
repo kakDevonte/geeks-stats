@@ -79,9 +79,18 @@ function App() {
 
       const winners = [];
 
-        data.map(item => item.answers.sort((a, b) => a.timeAnswer.localeCompare(b.timeAnswer))
+        data.slice(0, 60).map(item => item.answers.sort((a, b) => a.timeAnswer.localeCompare(b.timeAnswer))
             .filter(obj => obj.correct === true && obj.isLate === false)
             .slice(0, 3).map(user => winners.push({
+                id: user.id,
+                fio: user.firstName + ' ' + user.lastName,
+                numberAns: item.number,
+                numberLive: user.numberLive,
+                timezone: user.timezone,
+                timeAnswer: user.timeAnswer,
+            })))
+
+        data.slice(60, data.length).map(item => item.winners.map(user => winners.push({
                 id: user.id,
                 fio: user.firstName + ' ' + user.lastName,
                 numberAns: item.number,
